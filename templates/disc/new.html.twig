@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau disque{% endblock %}
+
+{% block body %}
+    <h1 class='text-center'>Ajouter un nouveau disque</h1>
+
+    {{ include('disc/_form.html.twig', {'button_label': 'Ajouter'}) }}
+
+{% endblock %}

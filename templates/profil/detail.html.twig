@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block title %}Profil{% endblock %}
+{% block body %}
+    <h1 class='pt-2 text-center'>Votre profil</h1>
+    <div class='d-flex'>
+        <div class='mb-2'>
+            <img src='https://pbs.twimg.com/profile_images/905088453649555456/GwsoNoQR_400x400.jpg' width='150' heigth='150'>
+        </div>
+        <div class='ms-2'>
+            <p class='m-0'>E-mail : {{ user.email }}</p>
+        </div>
+    </div>
+    <a class='btn btn-secondary' href='#'>Modifier</a>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block title %}Profil de {{ user.email }}{% endblock %}
+{% block body %}
+    <h1 class='pt-2 text-center'>{{ user.email }}</h1>
+    <div class='d-flex'>
+        <div class='mb-2'>
+            <img src='https://pbs.twimg.com/profile_images/905088453649555456/GwsoNoQR_400x400.jpg' width='150' heigth='150'>
+        </div>
+        <div class='ms-2'>
+            <p class='m-0'>E-mail : {{ user.email }}</p>
+            <p class='m-0'>Roles :
+                {% for role in user.roles %}
+                    {{ role }},
+                {% endfor %}
+            </p>
+        </div>
+    </div>
+    <a class='btn btn-secondary my-2' href={{ path ('app_admin_user')}}>Retour</a>
+    <a class='btn btn-secondary' href='#'>Modifier</a>
+    <a class='btn btn-danger' href='#'>Supprimer</a>
+{% endblock %}
