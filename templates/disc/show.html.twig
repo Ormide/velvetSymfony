@@ -42,7 +42,7 @@
 
         <div class="row mb-2">
             <label class="mt-2" for="picture">Picture</label>
-            <img class="col-sm-6" src="{{ disc.picture }}" alt="{{ disc.title }}" title="{{ disc.title }}" id="picutre">
+            <img class="col-sm-6" src="{{ asset ('images/disc/') }}{{ disc.picture }}" alt="{{ disc.title }}" title="{{ disc.title }}" id="picutre">
         </div>
 
         <a class="btn btn-primary" href={{ path ('app_disc_index') }}>Retour</a>

@@ -6,6 +6,7 @@ use App\Entity\Disc;
 use App\Form\DiscType;
 use App\Repository\DiscRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,6 +32,25 @@ class DiscController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $pictureFile = $form['picture2']->getData(); //Récupération des infos de l'upload
+
+            if ($pictureFile) {
+                $newPicture = $form['title']->getData() . '.' . $pictureFile->guessExtension();
+                $disc->setPicture($newPicture);
+                try {
+                    $pictureFile->move(
+                        $this->getParameter('jaquette_directory'),
+                        $newPicture
+                    );
+                } catch (FileException $e) {
+                    echo 'erreur upload image';
+                }
+            } else {
+                $newPicture = 'disc_default.jpg';
+                $disc->setPicture($newPicture);
+            }
+
             $discRepository->add($disc, true);
 
             return $this->redirectToRoute('app_disc_index', [], Response::HTTP_SEE_OTHER);
@@ -59,6 +79,27 @@ class DiscController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $pictureFile = $form['picture2']->getData(); //Récupération des infos de l'upload
+
+            if ($pictureFile) {
+                $newPicture = $form['title']->getData() . '.' . $pictureFile->guessExtension();
+
+                //Upload
+                $disc->setPicture($newPicture);
+                try {
+                    $pictureFile->move(
+                        $this->getParameter('jaquette_directory'),
+                        $newPicture
+                    );
+                } catch (FileException $e) {
+                    echo 'erreur upload image';
+                }
+            } else {
+                $newPicture = 'disc_default.jpg';
+                $disc->setPicture($newPicture);
+            }
+            
             $discRepository->add($disc, true);
 
             return $this->redirectToRoute('app_disc_index', [], Response::HTTP_SEE_OTHER);

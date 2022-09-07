@@ -4,10 +4,12 @@ namespace App\Form;
 
 use App\Entity\Disc;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 
@@ -92,7 +94,20 @@ class DiscType extends AbstractType
                     ])
                 ]
             ])
-            ->add('picture')
+            ->add('picture2', FileType::class, [
+                'label' => 'Jaquette du disque',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new Image([
+                        'maxSize' => '2000k',
+                        'mimeTypes' => [
+                            'image/jpg', 'image/jpeg', 'image/png'
+                        ],
+                        'mimeTypesMessage' => 'Inserez une image au format jpg, jpeg ou png'
+                    ])
+                ]
+            ])
         ;
     }
 
