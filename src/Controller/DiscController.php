@@ -24,6 +24,8 @@ class DiscController extends AbstractController
     #[Route('/new', name: 'app_disc_new', methods: ['GET', 'POST'])]
     public function new(Request $request, DiscRepository $discRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $disc = new Disc();
         $form = $this->createForm(DiscType::class, $disc);
         $form->handleRequest($request);
@@ -51,6 +53,8 @@ class DiscController extends AbstractController
     #[Route('/{id}/edit', name: 'app_disc_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Disc $disc, DiscRepository $discRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $form = $this->createForm(DiscType::class, $disc);
         $form->handleRequest($request);
 
@@ -69,6 +73,8 @@ class DiscController extends AbstractController
     #[Route('/{id}', name: 'app_disc_delete', methods: ['POST'])]
     public function delete(Request $request, Disc $disc, DiscRepository $discRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        
         if ($this->isCsrfTokenValid('delete'.$disc->getId(), $request->request->get('_token'))) {
             $discRepository->remove($disc, true);
         }
