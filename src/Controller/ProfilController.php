@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\ProfilType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,8 +18,10 @@ class ProfilController extends AbstractController
     public function index() :Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
+        
+        /** @var User $user */
         $user = $this->getUser();
+        $user->birthday = date_format($user->getBirthday(), 'd/m/Y');
 
         return $this->render('profil/detail.html.twig', [
             'user' => $user
@@ -33,6 +36,22 @@ class ProfilController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $pictureFile = $form['picture2']->getData(); //Récupération des infos de l'upload
+
+            /** @var User $user */
+            if ($pictureFile) {
+                $newPicture = $user->getEmail() . '_' . $user->getID() . '.' . $pictureFile->guessExtension();
+                $user->setPicture($newPicture);
+                try {
+                    $pictureFile->move(
+                        $this->getParameter('profil_directory'),
+                        $newPicture
+                    );
+                } catch (FileException $e) {
+                    echo 'erreur upload image';
+                }
+            }
+
             $userRepository->add($user, true);
 
             return $this->redirectToRoute('profil', [], Response::HTTP_SEE_OTHER);

@@ -1,20 +1,27 @@
 {% extends 'base.html.twig' %}
 {% block title %}Profil{% endblock %}
 {% block body %}
-    <h1 class='pt-2 text-center'>Votre profil</h1>
-    
-    <div class='d-flex justify-content-center'>
-        <div class='col-6'>
-            <div class='d-flex justify-content-center'>
-                <img src='https://pbs.twimg.com/profile_images/905088453649555456/GwsoNoQR_400x400.jpg' width='150' heigth='150'>
+        <div class='mx-auto col-md-3'>
+            <div class='d-flex justify-content-center my-2'>
+                <img class='rounded-circle' src="{{ asset ('images/profil/') }}{{ user.picture }}" width='150' heigth='150'>
             </div>
-            <div>
-                <p class='form-label'>E-mail :</p>
-                <input class='form-control mb-2' readonly disabled value={{ user.email }}>
+
+            <h1 class='h1 text-center'>Votre profil</h1>
+
+            <div class='d-flex justify-content-center my-2'>
+                <a class='btn btn-primary' href={{ path ('app_profil_edit')}}>Modifier votre profil</a>
             </div>
-            <div>
-                <a class='btn btn-primary' href={{ path ('app_profil_edit')}}>Modifier</a>
+
+            <div class=''>
+                <label class='form-label mt-2'>Prénom : </label>
+                <input class='form-control'value={{ user.Firstname }} readonly disabled>
+                <label class='form-label mt-2'>Nom de famille : </label>
+                <input class='form-control'value={{ user.Lastname }} readonly disabled>
+                <label class='form-label mt-2'>Date de naissance : </label>
+                <input class='form-control' value='{{ user.birthday }}' readonly disabled>
+                <label class='form-label mt-2'>Adresse E-mail : </label>
+                <input class='form-control'value={{ user.email }} readonly disabled>
             </div>
-        </div> 
-    </div>
+        </div>
+
 {% endblock %}
