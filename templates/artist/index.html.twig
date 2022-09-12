@@ -3,35 +3,23 @@
 {% block title %}Artist index{% endblock %}
 
 {% block body %}
-    <h1 class='pt-2'>Artist index</h1>
+    <div class="d-flex justify-content-between pt-2">
+        <h1 class="my-auto ms-3">Liste des Artistes</h1>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="my-auto me-3 btn btn-primary disctext" href={{ path ('app_artist_new') }}>Ajouter un nouvel Artiste</a>
+        {% endif %}
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Url</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="d-flex justify-content-center flex-wrap mt-2">
         {% for artist in artists %}
-            <tr>
-                <td>{{ artist.id }}</td>
-                <td>{{ artist.name }}</td>
-                <td>{{ artist.url }}</td>
-                <td>
-                    <a href="{{ path('app_artist_show', {'id': artist.id}) }}">show</a>
-                    <a href="{{ path('app_artist_edit', {'id': artist.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
+            <div class="card m-2 shadow rounded" style="width: 19rem;">
+                <img src="{{ asset ('images/artist/Artist.jpg') }}" class="card-img-top" alt="{{ artist.name }}" title="{{ artist.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ artist.name }}</h5>
+                    <p class="card-text m-0"><b>URL : </b>{{ artist.URL }}</p>
+                    <a href="{{ path ('app_artist_show', {id: artist.id}) }}" class="btn btn-primary mt-2">Détails</a>
+                </div>
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_artist_new') }}">Create new</a>
+    </div>
 {% endblock %}

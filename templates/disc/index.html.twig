@@ -5,29 +5,23 @@
 {% block body %}
 
     <div class="d-flex justify-content-between pt-2">
-        <h1 class="my-auto">Liste des disques</h1>
+        <h1 class="my-auto ms-3">Liste des disques</h1>
         {% if is_granted('ROLE_ADMIN') %}
-            <a class="my-auto btn btn-primary disctext" href={{ path ('app_disc_new') }}>Ajouter</a>
+            <a class="my-auto me-3 btn btn-primary disctext" href={{ path ('app_disc_new') }}>Ajouter un nouveau disque</a>
         {% endif %}
     </div>
 
-    <div class="d-flex flex-wrap mt-2">
+    <div class="d-flex justify-content-center flex-wrap mt-2">
         {% for disc in discs %}
-            <div class="d-flex col-md-6 my-1 p-0">
-                <div class='col-5 p-0'>
-                    <img class="img-fluid" src="{{ asset ('images/disc/') }}{{ disc.picture }}" alt="{{ disc.title }}" title="{{ disc.title }}" width="500" height="500">
-                </div>
-                <div class="d-flex flex-column flex-grow-1 mx-2 justify-content-between">
-                    <div>
-                        <p class="m-0 fw-bold">{{ disc.title }}</p>
-                        <p class="m-0 fw-bold disctext">{{ disc.artist.name }}</p>
-                        <p class="m-0 disctext"><b>Label : </b>{{ disc.label }}</p>
-                        <p class="m-0 disctext"><b>Year : </b>{{ disc.year }}</p>
-                        <p class="m-0 disctext"><b>Genre : </b>{{ disc.genre }}</p>
-                    </div>
-                    <div>
-                        <a class="btn btn-primary disctext" href={{ path ('app_disc_show', {id: disc.id}) }}>Détails</a>
-                    </div>    
+            <div class="card m-2 shadow rounded" style="width: 19rem;">
+                <img src="{{ asset ('images/disc/') }}{{ disc.picture }}" class="card-img-top" alt="{{ disc.title }}" title="{{ disc.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ disc.title }}</h5>
+                    <p class="card-text m-0"><b>Artiste : </b>{{ disc.artist.name }}</p>
+                    <p class="card-text m-0"><b>Label : </b>{{ disc.label }}</p>
+                    <p class="card-text m-0"><b>Année : </b>{{ disc.year }}</p>
+                    <p class="card-text m-0"><b>Genre : </b>{{ disc.genre }}</p>
+                    <a href="{{ path ('app_disc_show', {id: disc.id}) }}" class="btn btn-primary mt-2">Détails</a>
                 </div>
             </div>
         {% endfor %}

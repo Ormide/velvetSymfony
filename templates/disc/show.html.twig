@@ -3,53 +3,33 @@
 {% block title %}{{ disc.title }}{% endblock %}
 
 {% block body %}
+    <a class="btn btn-secondary my-1" href={{ path ('app_disc_index') }}>Retour</a>
 
-    <h2>Details</h2>
+    <div class='d-flex flex-column flex-md-row justify-content-md-between'> 
+        <div class='d-flex flex-column flex-md-row'>
+            <div class="text-center">
+                <img class="" src="{{ asset ('images/disc/') }}{{ disc.picture }}" alt="{{ disc.title }}" title="{{ disc.title }}" width='268' heigth='268'>
+            </div>
 
-    <div class="disctext">
-        <div class="row">
-            <div class="col-sm">
-                <label class="mt-2" for="title">Title</label>
-                <input class="form-control" type="text" name='title' id="title" value="{{ disc.title }}" readonly disabled>
-            </div>
-            <div class="col-sm">
-                <label class="mt-2" for="artist">Artist</label>
-                <input class="form-control" type="text" name='artist' id="artist" value="{{ disc.artist.name }}" readonly disabled>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm">
-                <label class="mt-2" for="year">Year</label>
-                <input class="form-control" type="number" name='year' id="year" value="{{ disc.year }}" readonly disabled>
-            </div>
-            <div class="col">
-                <label class="mt-2" for="genre">Genre</label>
-                <input class="form-control" type="text" name='genre' id="genre" value="{{ disc.genre }}" readonly disabled>
+            <div class='ms-md-2 d-flex flex-column justify-content-between'>
+                <div class=''>
+                    <h1 class='m-0'>{{ disc.title }}</h1>
+                    <h4 class='m-0'>{{ disc.artist.name }}</h4>
+                    <p class='m-0'><b>Label : </b>{{ disc.label }}</p>
+                    <p class='m-0'><b>Année : </b>{{ disc.year }}</p>
+                </div>
+                <div class=''>
+                    <h2 class='m-0'><b>Prix : </b>{{ disc.price }} €</h2>
+                </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-sm">
-                <label class="mt-2" for="label">Label</label>
-                <input class="form-control" type="text" name='label' id="label" value="{{ disc.label }}" readonly disabled>
-            </div>
-            <div class="col-sm">
-                <label class="mt-2" for="price">Price</label>
-                <input class="form-control" type="number" name='price' id="price" value="{{ disc.price }}" readonly disabled>
-            </div>
+        <div class='d-flex flex-column col-md-2'>            
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deleteModal">Supprimer</a> <!-- Affiche une box de confirmation -->
+                <a class="btn btn-primary m-1" href="{{ path ('app_disc_edit', {id: disc.id}) }}">Modifer</a>
+            {% endif %}
         </div>
-
-        <div class="row mb-2">
-            <label class="mt-2" for="picture">Picture</label>
-            <img class="col-sm-6" src="{{ asset ('images/disc/') }}{{ disc.picture }}" alt="{{ disc.title }}" title="{{ disc.title }}" id="picutre">
-        </div>
-
-        <a class="btn btn-primary" href={{ path ('app_disc_index') }}>Retour</a>
-        {% if is_granted('ROLE_ADMIN') %}
-            <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal">Supprimer</a> <!-- Affiche une box de confirmation -->
-            <a class="btn btn-primary" href="{{ path ('app_disc_edit', {id: disc.id}) }}">Modifer</a>
-        {% endif %}
     </div>
 
     {% if is_granted('ROLE_ADMIN') %}
