@@ -1,9 +1,19 @@
 {% extends 'base.html.twig' %}
-{% block title %}Willkommen{% endblock %}
+{% block title %}Velvet Record{% endblock %}
 {% block body %}
-    <div class="row pt-2">
-        <div class="col-sm-8 offset-sm-2">
-            <h1 class="text-center">Willkommen</h1>
-        </div>
+<img class ='img-fluid'src='{{ asset ('images/banner.jpg') }}' alt='VelvetRecord' title='VelvetRecord' width='100%'>
+
+<div class='mt-2'>
+    <h3 class='text-center'>Disques récement ajouté :</h3>
+    <div class='row justify-content-center'>
+        {% for disc in discs %}
+            <div class='col-2'>
+            <a href='{{ path ('app_disc_show', {id: disc.id}) }}'>
+                <img src="{{ asset ('images/disc/') }}{{ disc.picture }}" class="img-fluid rounded h-100" alt="{{ disc.title }}" title="{{ disc.title }}">
+            </a>
+            </div>
+        {% endfor %}
     </div>
+</div>
+
 {% endblock %}

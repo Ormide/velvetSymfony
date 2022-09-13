@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\DiscRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Artist;
 
@@ -34,6 +35,9 @@ class Disc
 
     #[ORM\Column]
     private ?int $price = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $DateAjout = null;
 
     public function getId(): ?int
     {
@@ -120,6 +124,18 @@ class Disc
     public function setPrice(int $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getDateAjout(): ?\DateTimeInterface
+    {
+        return $this->DateAjout;
+    }
+
+    public function setDateAjout(\DateTimeInterface $DateAjout): self
+    {
+        $this->DateAjout = $DateAjout;
 
         return $this;
     }

@@ -38,6 +38,18 @@ class DiscRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findRecentDisc()
+    {
+        $qb = $this->createQueryBuilder('d')
+                ->orderBy('d.DateAjout', 'DESC');
+
+        $qb->setMaxResults(5);
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
+    }
 //    /**
 //     * @return Disc[] Returns an array of Disc objects
 //     */

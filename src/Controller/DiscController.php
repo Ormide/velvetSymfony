@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Disc;
 use App\Form\DiscType;
 use App\Repository\DiscRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,6 +33,10 @@ class DiscController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //récupération de la date d'ajout
+            $date = new DateTime();
+            $disc->setDateAjout($date);
 
             $pictureFile = $form['picture2']->getData(); //Récupération des infos de l'upload
 
@@ -79,6 +84,10 @@ class DiscController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //récupération de la date d'ajout
+            $date = new DateTime();
+            $disc->setDateAjout($date);
 
             $pictureFile = $form['picture2']->getData(); //Récupération des infos de l'upload
 
