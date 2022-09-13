@@ -50,6 +50,18 @@ class DiscRepository extends ServiceEntityRepository
 
         return $query->execute();
     }
+
+    public function findArtistDisc($id)
+    {
+        $qb = $this->createQueryBuilder('d')
+            ->where('d.artist = :id')
+            ->orderBy('d.title', 'ASC')
+            ->setParameter('id', $id);
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
+    }
 //    /**
 //     * @return Disc[] Returns an array of Disc objects
 //     */

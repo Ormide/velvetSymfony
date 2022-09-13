@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Artist;
 use App\Form\ArtistType;
 use App\Repository\ArtistRepository;
+use App\Repository\DiscRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,10 +44,11 @@ class ArtistController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_artist_show', methods: ['GET'])]
-    public function show(Artist $artist): Response
+    public function show(Artist $artist, DiscRepository $discRepository): Response
     {
         return $this->render('artist/show.html.twig', [
             'artist' => $artist,
+            'discs' => $discRepository->findArtistDisc($artist),
         ]);
     }
 

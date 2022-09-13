@@ -30,6 +30,22 @@
         </div>
     </div>
 
+    <div class="mt-2 row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-2 row-cols-xxl-6 justify-content-center justify-content-sm-start">
+        {% for disc in discs %}
+        <div class='col col-5'>
+            <div class="card h-100 shadow">
+                <div class='card-img-top ratio ratio-1x1'>
+                    <img src="{{ asset ('images/disc/') }}{{ disc.picture }}" class="img-fluid" alt="{{ disc.title }}" title="{{ disc.title }}">
+                </div>
+                <div class="card-body p-2">
+                    <h6 class="card-title">{{ disc.title }}</h6>
+                </div>
+                <a href="{{ path ('app_disc_show', {id: disc.id}) }}" class="stretched-link"></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
     {% if is_granted('ROLE_ADMIN') %}
     <!-- Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
