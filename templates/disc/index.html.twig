@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <div class="d-flex justify-content-between">
+    <div class="py-2 d-flex justify-content-between">
         <h1 class="my-auto">Liste des disques</h1>
         {% if is_granted('ROLE_ADMIN') %}
             <a class="my-auto btn btn-primary disctext" href={{ path ('app_disc_new') }}>Ajouter un nouveau disque</a>
@@ -24,8 +24,6 @@
                     <p class="card-text m-0"><b>Label : </b>{{ disc.label }}</p>
                     <p class="card-text m-0"><b>Année : </b>{{ disc.year }}</p>
                     <p class="card-text m-0"><b>Genre : </b>{{ disc.genre }}</p>
-                </div>
-                <div class=''>
                     <a href="{{ path ('app_disc_show', {id: disc.id}) }}" class="stretched-link"></a>
                 </div>
             </div>

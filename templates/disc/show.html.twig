@@ -6,15 +6,15 @@
     <a class="btn btn-secondary my-1" href={{ path ('app_disc_index') }}>Retour</a>
 
     <div class='d-flex flex-column flex-md-row justify-content-md-between'> 
-        <div class='d-flex flex-column flex-md-row'>
-            <div class="text-center">
-                <img class="" src="{{ asset ('images/disc/') }}{{ disc.picture }}" alt="{{ disc.title }}" title="{{ disc.title }}" width='268' heigth='268'>
+        <div class='d-flex flex-column col-10 align-self-center flex-md-row'>
+            <div class="col-md-4">
+                <img class="img-fluid" src="{{ asset ('images/disc/') }}{{ disc.picture }}" alt="{{ disc.title }}" title="{{ disc.title }}">
             </div>
 
-            <div class='ms-md-2 d-flex flex-column justify-content-between'>
+            <div class='ms-md-2 my-2 my-md-0 d-flex flex-column justify-content-between'>
                 <div class=''>
                     <h1 class='m-0'>{{ disc.title }}</h1>
-                    <h4 class='m-0'>{{ disc.artist.name }}</h4>
+                    <a href='{{ path ('app_artist_show', {id: disc.artist.id}) }}' class='text-decoration-none h4'>{{ disc.artist.name }}</a>
                     <p class='m-0'><b>Label : </b>{{ disc.label }}</p>
                     <p class='m-0'><b>Année : </b>{{ disc.year }}</p>
                 </div>
@@ -24,10 +24,10 @@
             </div>
         </div>
 
-        <div class='d-flex flex-column col-md-2'>            
+        <div class='d-flex flex-column col-10 align-self-center align-self-md-start col-md-2'>            
             {% if is_granted('ROLE_ADMIN') %}
-                <a class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deleteModal">Supprimer</a> <!-- Affiche une box de confirmation -->
-                <a class="btn btn-primary m-1" href="{{ path ('app_disc_edit', {id: disc.id}) }}">Modifer</a>
+                <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal">Supprimer</a> <!-- Affiche une box de confirmation -->
+                <a class="btn btn-primary mb-1" href="{{ path ('app_disc_edit', {id: disc.id}) }}">Modifer</a>
             {% endif %}
         </div>
     </div>
