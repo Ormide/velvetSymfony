@@ -5,8 +5,8 @@
     {{ form_start(form, {'attr': {'class': 'row d-md-flex justify-content-center', 'novalidate': 'novalidate'}}) }}
     <div class='col-md-6'>
         {{ form_widget(form) }}
-        <a class="btn btn-secondary" href='{{ path ('profil')}}'>Retour</a>
-        <button class="btn btn-primary">{{ button_label|default('Modifier') }}</button>
+        <a class="btn btn-secondary rounded-pill" href='{{ path ('profil')}}'>Retour</a>
+        <button class="btn btn-primary rounded-pill">{{ button_label|default('Modifier') }}</button>
     <div>
 {{ form_end(form) }}
 {% endblock %}

@@ -14,12 +14,12 @@
                 </div>
             {% elseif is_granted('ROLE_USER') %}
                 <div class='d-flex justify-content-center'>
-                    <span class="badge rounded-pill text-bg-sucess text-center">Utilisateur</span>
+                    <span class="badge rounded-pill text-bg-success text-center">Utilisateur</span>
                 </div>
             {% endif %}
 
             <div class='d-flex justify-content-center my-2'>
-                <a class='btn btn-primary' href={{ path ('app_profil_edit')}}>Modifier votre profil</a>
+                <a class='btn btn-primary rounded-pill' href={{ path ('app_profil_edit')}}>Modifier votre profil</a>
             </div>
 
             <div class=''>

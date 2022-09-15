@@ -1,7 +1,9 @@
 {{ form_start(form, {'attr': {'class': 'row d-md-flex justify-content-center', 'novalidate': 'novalidate'}}) }}
     <div class='col-md-6'>
         {{ form_widget(form) }}
-        <a class="btn btn-secondary" href='{{ path ('app_disc_index')}}'>Retour</a>
-        <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+        <div class='text-center'>
+            <a class="btn btn-secondary rounded-pill" href='{{ path ('app_disc_index')}}'>Retour</a>
+            <button class="btn btn-primary rounded-pill">{{ button_label|default('Save') }}</button>
+        </div>
     <div>
 {{ form_end(form) }}

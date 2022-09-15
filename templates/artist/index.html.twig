@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-between pt-2">
         <h1 class="my-auto">Liste des Artistes</h1>
         {% if is_granted('ROLE_ADMIN') %}
-            <a class="my-auto btn btn-primary disctext" href={{ path ('app_artist_new') }}>Ajouter un nouvel Artiste</a>
+            <a class="my-auto btn btn-primary rounded-pill disctext" href={{ path ('app_artist_new') }}>Ajouter un nouvel Artiste</a>
         {% endif %}
     </div>
 
