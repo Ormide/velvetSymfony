@@ -24,6 +24,9 @@ class Artist
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $url = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $picture = null;
+
     public function __construct()
     {
         $this->discs = new ArrayCollection();
@@ -97,5 +100,20 @@ class Artist
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function getPicture(): ?string
+    {
+        if ($this->picture == NULL) {
+            return 'artist.jpg';
+        }
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
+
+        return $this;
     }
 }

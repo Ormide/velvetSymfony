@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ProfilType;
 use App\Repository\UserRepository;
+use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,28 +28,23 @@ class ProfilController extends AbstractController
         ]);
     }
     #[Route('/edit', name: 'app_profil_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, UserRepository $userRepository): Response
+    public function edit(Request $request, UserRepository $userRepository, FileUploader $fileUploader): Response
     {
+        /** @var User $user */
         $user = $this->getUser();
 
         $form = $this->createForm(ProfilType::class, $user);
         $form->handleRequest($request);
 
+        
         if ($form->isSubmitted() && $form->isValid()) {
-            $pictureFile = $form['picture2']->getData(); //Récupération des infos de l'upload
+            $file = $form['picture2']->getData(); //Récupération des infos de l'upload
+            $id = $user->getId();
+            $name = $user->getEmail();
 
-            /** @var User $user */
-            if ($pictureFile) {
-                $newPicture = $user->getEmail() . '_' . $user->getID() . '.' . $pictureFile->guessExtension();
-                $user->setPicture($newPicture);
-                try {
-                    $pictureFile->move(
-                        $this->getParameter('profil_directory'),
-                        $newPicture
-                    );
-                } catch (FileException $e) {
-                    echo 'erreur upload image';
-                }
+            if ($file) {
+                $userPicture = $fileUploader->uploadID($file, 'user', $id, $name);
+                $user->setPicture($userPicture);
             }
 
             $userRepository->add($user, true);

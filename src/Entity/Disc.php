@@ -18,7 +18,7 @@ class Disc
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
     #[ORM\Column(length: 255)]
@@ -58,6 +58,9 @@ class Disc
 
     public function getPicture(): ?string
     {
+        if ($this->picture == NULL) {
+            return 'disc_default.jpg';
+        }
         return $this->picture;
     }
 

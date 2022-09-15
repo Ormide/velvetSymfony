@@ -59,6 +59,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getPicture(): ?string
     {
+        if ($this->picture == NULL){
+            return 'user.jpg';
+        }
         return $this->picture;
     }
 

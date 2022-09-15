@@ -5,9 +5,10 @@ namespace App\Controller;
 use App\Entity\Disc;
 use App\Form\DiscType;
 use App\Repository\DiscRepository;
+use App\Service\FileDirectory;
+use App\Service\FileUploader;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,7 +25,7 @@ class DiscController extends AbstractController
     }
 
     #[Route('/new', name: 'app_disc_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, DiscRepository $discRepository): Response
+    public function new(Request $request, DiscRepository $discRepository, FileUploader $fileUploader, FileDirectory $fileDirectory): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -38,23 +39,13 @@ class DiscController extends AbstractController
             $date = new DateTime();
             $disc->setDateAjout($date);
 
-            $pictureFile = $form['picture2']->getData(); //Récupération des infos de l'upload
+            $discPicture = $form['picture2']->getData(); //Récupération des infos de l'upload
 
-            if ($pictureFile) {
-                $newPicture = $form['title']->getData() . '.' . $pictureFile->guessExtension();
-                $disc->setPicture($newPicture);
-                try {
-                    $pictureFile->move(
-                        $this->getParameter('jaquette_directory'),
-                        $newPicture
-                    );
-                } catch (FileException $e) {
-                    echo 'erreur upload image';
-                }
-            } else {
-                $newPicture = 'disc_default.jpg';
-                $disc->setPicture($newPicture);
-            }
+            if ($discPicture) {
+                $name = $form['title']->getData();
+                $filename = $fileUploader->upload($discPicture, $fileDirectory->getDiscDirectory(), $name);
+                $disc->setPicture($filename);
+            } 
 
             $discRepository->add($disc, true);
 
@@ -76,7 +67,7 @@ class DiscController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_disc_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Disc $disc, DiscRepository $discRepository): Response
+    public function edit(Request $request, Disc $disc, DiscRepository $discRepository, FileUploader $fileUploader, FileDirectory $fileDirectory): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -84,29 +75,12 @@ class DiscController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $discPicture = $form['picture2']->getData(); //Récupération des infos de l'upload
 
-            //récupération de la date d'ajout
-            $date = new DateTime();
-            $disc->setDateAjout($date);
-
-            $pictureFile = $form['picture2']->getData(); //Récupération des infos de l'upload
-
-            if ($pictureFile) {
-                $newPicture = $form['title']->getData() . '.' . $pictureFile->guessExtension();
-
-                //Upload
-                $disc->setPicture($newPicture);
-                try {
-                    $pictureFile->move(
-                        $this->getParameter('jaquette_directory'),
-                        $newPicture
-                    );
-                } catch (FileException $e) {
-                    echo 'erreur upload image';
-                }
-            } else {
-                $newPicture = 'disc_default.jpg';
-                $disc->setPicture($newPicture);
+            if ($discPicture) {
+                $name = $form['title']->getData();
+                $filename = $fileUploader->upload($discPicture, $fileDirectory->getDiscDirectory(), $name);
+                $disc->setPicture($filename);
             }
             
             $discRepository->add($disc, true);
