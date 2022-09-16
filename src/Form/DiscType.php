@@ -28,7 +28,7 @@ class DiscType extends AbstractType
                         'message' => 'Veuillez saisir un titre'
                     ]),
                     new Regex([
-                        'pattern' => '/^[A-Za-z0-9,\s]+$/',
+                        'pattern' => '/^[A-Za-z0-9éèàçâêûîôäëüïö\ ]+$/',
                         'message' => 'Caractère(s) non valide(s)',
                     ])
                 ]
@@ -59,7 +59,7 @@ class DiscType extends AbstractType
                         'message' => 'Veuillez saisir un genre'
                     ]),
                     new Regex([
-                        'pattern' => '/^[A-Za-z]+$/',
+                        'pattern' => '/^[A-Za-z0-9éèàçâêûîôäëüïö\ ]+$/',
                         'message' => 'Caractère(s) non valide(s)'
                     ])
                 ]
@@ -74,7 +74,7 @@ class DiscType extends AbstractType
                         'message' => 'Veuillez saisir un label'
                     ]),
                     new Regex([
-                        'pattern' => '/^[A-Za-z0-9,\s]+$/',
+                        'pattern' => '/^[A-Za-z0-9éèàçâêûîôäëüïö\ ]+$/',
                         'message' => 'Caractère(s) non valide(s)'
                     ])
                 ]
