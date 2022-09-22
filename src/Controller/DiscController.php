@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Comments;
 use App\Entity\Disc;
+use App\Entity\User;
 use App\Form\DiscType;
+use App\Repository\CommentsRepository;
 use App\Repository\DiscRepository;
 use App\Service\FileDirectory;
 use App\Service\FileUploader;
@@ -59,10 +62,14 @@ class DiscController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_disc_show', methods: ['GET'])]
-    public function show(Disc $disc): Response
+    public function show(Disc $disc, CommentsRepository $commentsRepository): Response
     {
+        $user = $this->getUser();
+
         return $this->render('disc/show.html.twig', [
             'disc' => $disc,
+            'comment' => $commentsRepository->findCommentDisc($disc),
+            'user' => $user,
         ]);
     }
 

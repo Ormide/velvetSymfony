@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <div class='d-flex flex-column col-10 align-self-center align-self-md-start col-md-2'>            
+        <div class='d-flex flex-column col-10 align-self-center align-self-md-start col-md-2'>           
             {% if is_granted('ROLE_ADMIN') %}
                 <a class="btn btn-danger rounded-pill mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal">Supprimer</a> <!-- Affiche une box de confirmation -->
                 <a class="btn btn-primary rounded-pill mb-1" href="{{ path ('app_disc_edit', {id: disc.id}) }}">Modifer</a>
@@ -32,8 +32,33 @@
         </div>
     </div>
 
+    <div>
+        <h3 class='mt-2'>Commentaire :</h3>
+        {% if is_granted('ROLE_USER') %}
+        <div class='text-center'>
+            <a class='btn btn-primary rounded-pill mb-1' href="{{ path ('app_comments_new', {id: disc.id})}}">Ajouter un commentaire</a>
+        </div>
+        {% endif %} 
+        {% for comment in comment %}
+        <div class='my-1 p-2 rounded border'>
+            <div class='mb-2 d-flex align-items-end'>
+                <h5 class='me-2 mb-0'>{{ comment.user.email }}</h5>
+                <p class='me-2 mb-0 small'>le {{ comment.date|date('d-m-Y H:i') }}</p>
+                {% if comment.updateDate is not null %}
+                    <p class='me-2 mb-0 small'>Modifié le {{ comment.updateDate|date('d-m-Y H:i') }}</p>
+                {% endif %}
+            </div>
+            <p class='my-2'>{{ comment.content }}</p>
+            {% if user.id == comment.user.id %}
+                <a class='' href={{ path ('app_comments_edit', {id: comment.id}) }}>Modifier</a>
+                {{ include('comments/_delete_form.html.twig') }}
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
     {% if is_granted('ROLE_ADMIN') %}
-        <!-- Modal -->
+        <!-- Modal suppresion du disc-->
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
