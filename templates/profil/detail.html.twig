@@ -20,17 +20,18 @@
 
             <div class='d-flex justify-content-center my-2'>
                 <a class='btn btn-primary rounded-pill' href={{ path ('app_profil_edit')}}>Modifier votre profil</a>
+                <a class='btn btn-primary rounded-pill' href='{{ path ('app_profil_pw')}}'>Modifier votre mot de passe</a>
             </div>
 
             <div class=''>
                 <label class='form-label mt-2'>Prénom : </label>
-                <input class='form-control'value={{ user.Firstname }} readonly disabled>
+                <input class='form-control'value='{{ user.Firstname }}' readonly disabled>
                 <label class='form-label mt-2'>Nom de famille : </label>
-                <input class='form-control'value={{ user.Lastname }} readonly disabled>
+                <input class='form-control'value='{{ user.Lastname }}' readonly disabled>
                 <label class='form-label mt-2'>Date de naissance : </label>
                 <input class='form-control' value='{{ user.birthday }}' readonly disabled>
                 <label class='form-label mt-2'>Adresse E-mail : </label>
-                <input class='form-control'value={{ user.email }} readonly disabled>
+                <input class='form-control'value='{{ user.email }}' readonly disabled>
             </div>
         </div>
 

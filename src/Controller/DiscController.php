@@ -68,6 +68,7 @@ class DiscController extends AbstractController
 
         return $this->render('disc/show.html.twig', [
             'disc' => $disc,
+            'discPrice' => $disc->PriceDecimal(),
             'comment' => $commentsRepository->findCommentDisc($disc),
             'user' => $user,
         ]);

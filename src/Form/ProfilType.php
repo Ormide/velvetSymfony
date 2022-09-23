@@ -44,12 +44,6 @@ class ProfilType extends AbstractType
             ->add('birthday', DateType::class, [
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
-                'constraints' => [
-                    new Regex([
-                        'pattern' => '/^[0-9]{8}$/',
-                        'message' => 'Date non valide'
-                    ])
-                ]
             ])
             ->add('picture2', FileType::class, [
                 'label' => 'Image de profil',

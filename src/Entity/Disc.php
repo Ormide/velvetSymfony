@@ -51,7 +51,6 @@ class Disc
     private ?string $genre = null;
 
     #[ORM\Column]
-    #[Regex('/^[0-9]+$/')]
     #[NotBlank()]
     private ?int $price = null;
 
@@ -198,5 +197,9 @@ class Disc
         }
 
         return $this;
+    }
+
+    public function PriceDecimal() {
+        return $this->price / 100;
     }
 }

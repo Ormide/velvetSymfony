@@ -6,6 +6,7 @@ use App\Entity\Disc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -79,7 +80,8 @@ class DiscType extends AbstractType
                     ])
                 ]
             ])
-            ->add('price', IntegerType::class, [
+            ->add('price', MoneyType::class, [
+                'divisor' => 100,
                 'label' => 'Prix',
                 'attr' => [
                     'placeholder' => 'Prix'
@@ -88,10 +90,6 @@ class DiscType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez saisir un prix'
                     ]),
-                    new Regex([
-                        'pattern' => '/^[0-9]+$/',
-                        'message' => 'Caractère(s) non valide(s)'
-                    ])
                 ]
             ])
             ->add('picture2', FileType::class, [
