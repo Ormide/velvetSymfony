@@ -3,8 +3,8 @@
 {% block title %}Disque{% endblock %}
 
 {% block body %}
-
-    <div class="py-2 d-flex justify-content-between">
+<div class='p-2'>
+    <div class="d-flex justify-content-between pb-2">
         <h1 class="my-auto">Liste des disques</h1>
         {% if is_granted('ROLE_ADMIN') %}
             <a class="my-auto btn btn-primary rounded-pill disctext" href={{ path ('app_disc_new') }}>Ajouter un nouveau disque</a>
@@ -30,5 +30,5 @@
         </div>
         {% endfor %}
     </div>
-    
+</div>
 {% endblock %}
