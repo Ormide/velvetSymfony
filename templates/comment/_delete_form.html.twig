@@ -1,22 +1,22 @@
-<button type="button" class="btn btn-outline-danger rounded-pill" data-bs-toggle="modal" data-bs-target="#DiscDeleteModal">
+<button type="button" class="btn btn-outline-danger rounded-pill" data-bs-toggle="modal" data-bs-target="#CommentModalDelete">
     Supprimer
 </button>
 
 <!-- Modal suppresion du commentaire-->
-<div class="modal fade" id="DiscDeleteModal" tabindex="-1" aria-labelledby="DiscDeleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="CommentModalDelete" tabindex="-1" aria-labelledby="CommentModalDeleteLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="DiscDeleteModalLabel">Confirmer la suppresion</h1>
+                <h1 class="modal-title fs-5" id="CommentModalDeleteLabel">Confirmer la suppresion</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Confirmer la suppresion de {{disc.title}} ?</p>
+                <p>Confirmer la suppresion ?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Annuler</button>
-                <form method="post" action="{{ path('app_disc_delete', {'id': disc.id}) }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ disc.id) }}">
+                <form method="post" action="{{ path('app_comments_delete', {'id': comment.id}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
                     <button class="btn btn-danger rounded-pill">Supprimer</button>
                 </form>
             </div>

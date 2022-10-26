@@ -1,82 +1,75 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ disc.title }}{% endblock %}
+{% block title %}
+	{{ disc.title }}
+{% endblock %}
 
 {% block body %}
-<div class='p-2'>
-    <a class="btn btn-secondary rounded-pill mb-2" href={{ path ('app_disc_index') }}>Retour</a>
+	<div class="container-xxl">
+		<!--BreadCrumb-->
+		<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+			<ol class="breadcrumb my-3">
+				<li class="breadcrumb-item"><a href="{{ path ('home') }}">Acceuil</a></li>
+				<li class="breadcrumb-item"><a href="{{ path ('app_disc_index') }}">Disques</a></li>
+				<li class="breadcrumb-item active">{{ disc.title }}</li>
+			</ol>
+		</nav>
 
-    <div class='d-flex flex-column flex-md-row justify-content-md-between'> 
-        <div class='d-flex flex-column col-10 align-self-center flex-md-row'>
-            <div class="col-md-4">
-                <img class="img-fluid rounded border border-dark" src="{{ asset ('images/disc/') }}{{ disc.picture }}" alt="{{ disc.title }}" title="{{ disc.title }}">
-            </div>
-
-            <div class='ms-md-2 my-2 my-md-0 d-flex flex-column justify-content-between'>
-                <div class=''>
-                    <h1 class='m-0'>{{ disc.title }}</h1>
-                    <a href='{{ path ('app_artist_show', {id: disc.artist.id}) }}' class='text-decoration-none h4'>{{ disc.artist.name }}</a>
-                    <p class='m-0'><b>Label : </b>{{ disc.label }}</p>
-                    <p class='m-0'><b>Année : </b>{{ disc.year }}</p>
-                </div>
-                <div class=''>
-                    <h2 class='m-0'><b>Prix : </b>{{ discPrice }} €</h2>
-                </div>
-            </div>
-        </div>
-
-        <div class='d-flex flex-column col-10 align-self-center align-self-md-start col-md-2'>           
-            {% if is_granted('ROLE_ADMIN') %}
-                <a class="btn btn-danger rounded-pill mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal">Supprimer</a> <!-- Affiche une box de confirmation -->
-                <a class="btn btn-primary rounded-pill mb-1" href="{{ path ('app_disc_edit', {id: disc.id}) }}">Modifer</a>
+		<!--InfoDisc-->
+		<div class="d-flex flex-column flex-md-row mt-2">
+			<div class='d-flex flex-fill col-10 col-md-12'>
+				<div class="col-3">
+					<img class="img-fluid rounded border border-dark" src="{{ asset ('images/disc/') }}{{ disc.picture }}" alt="{{ disc.title }}" title="{{ disc.title }}">
+				</div>
+				<div class="d-flex flex-column ms-3">
+					<p class="h2 m-0">{{ disc.title }}</p>
+					<a href='{{ path ('app_artist_show', {id: disc.artist.id}) }}' class='text-decoration-none h4 m-0'>{{ disc.artist.name }}</a>
+					<p class="m-0">Année: {{ disc.year }}</p>
+					<p class="m-0">Label: {{ disc.label }}</p>
+					<p class="h2 m-0 mt-auto">{{ discPrice }} €</p>
+				</div>
+			</div>
+			{% if is_granted('ROLE_ADMIN') %}
+				<div class='d-flex flex-column mt-3 col-10 align-self-center mt-md-2 align-self-md-start col-md-2'>
+					{{ include('disc/_delete_form.html.twig') }}
+					<a class="btn btn-outline-primary rounded-pill my-1" href="{{ path ('app_disc_edit', {id: disc.id}) }}">Modifer</a>
+				</div>
             {% endif %}
-        </div>
-    </div>
+		</div>
 
-    <div>
-        <h3 class='mt-2'>Commentaire :</h3>
-        {% if is_granted('ROLE_USER') %}
-        <div class='text-center'>
-            <a class='btn btn-primary rounded-pill mb-1' href="{{ path ('app_comments_new', {id: disc.id})}}">Ajouter un commentaire</a>
-        </div>
-        {% endif %} 
-        {% for comment in comment %}
-        <div class='my-1 p-2 rounded border'>
-            <div class='mb-2 d-flex align-items-end'>
-                <h5 class='me-2 mb-0'>{{ comment.user.email }}</h5>
-                <p class='me-2 mb-0 small'>le {{ comment.date|date('d-m-Y H:i') }}</p>
-                {% if comment.updateDate is not null %}
-                    <p class='me-2 mb-0 small'>Modifié le {{ comment.updateDate|date('d-m-Y H:i') }}</p>
-                {% endif %}
-            </div>
-            <p class='my-2'>{{ comment.content }}</p>
-            {% if user.id == comment.user.id %}
-                <a class='' href={{ path ('app_comments_edit', {id: comment.id}) }}>Modifier</a>
-                {{ include('comments/_delete_form.html.twig') }}
-            {% endif %}
-        </div>
-        {% endfor %}
-    </div>
-
-    {% if is_granted('ROLE_ADMIN') %}
-        <!-- Modal suppresion du disc-->
-        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Supprimer</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Confirmer la suppression de '{{ disc.title }}' ?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Annuler</button>
-                    {{ include('disc/_delete_form.html.twig') }}
-                </div>
-                </div>
-            </div>
-        </div>
-    {% endif %}
-</div>
+		<!--Comments-->
+		<div>
+			<!-- NewComment-->
+			{% if is_granted('ROLE_USER') %}
+				{% include "comment/_form.html.twig" %}
+			{% endif %}
+			<!--CommentsList-->
+			{% for comment in comment %}
+				<div class="mt-2">
+					<div class='d-flex justify-content-between px-2'>
+						<p class="m-0 fst-italic">{{ comment.user.email }}</p>
+						<div class='d-flex'>
+							<p class="m-0 fw-light fst-italic"><small>{{ comment.date|date('d-m-Y H:i') }}</small></p>
+							{% if comment.updateDate is not null %}
+								<p class='m-0 ms-2 fw-light fst-italic'><small>Modifié le{{ comment.updateDate|date('d-m-Y H:i') }}</small></p>
+							{% endif %}
+						</div>
+					</div>
+					<div class='d-flex justify-content-between border border-dark rounded m-0 p-2'>
+						<p class='align-self-center m-0 text-break'>{{ comment.content }}</p>
+						<div class='d-flex m-2'>
+							{% if is_granted('ROLE_USER') %}
+								{% if user.id == comment.user.id %}
+                                <div>
+                                    <a class='btn btn-outline-primary rounded-pill me-1' href={{ path ('app_comments_edit', {id: comment.id} ) }}>Modifier</a>
+                                </div>
+									{{ include('comment/_delete_form.html.twig') }}
+								{% endif %}
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}

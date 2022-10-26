@@ -18,10 +18,6 @@ class ArtistType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom de l\'artiste',
-                'attr' => [
-                    'placeholder' => 'Nom de l\'artiste',
-                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir un label'
@@ -33,10 +29,6 @@ class ArtistType extends AbstractType
                 ]
             ])
             ->add('url', TextType::class, [
-                'label' => 'Site web de l\'artiste',
-                'attr' => [
-                    'placeholder' => 'Site web de l\'artiste',
-                ],
                 'constraints' => [
                     new Regex([
                         'pattern' => '/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i',
@@ -45,7 +37,6 @@ class ArtistType extends AbstractType
                 ]
             ])
             ->add('picture2', FileType::class, [
-                'label' => 'Image de l\'artist',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [

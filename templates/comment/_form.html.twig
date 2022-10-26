@@ -1,0 +1,6 @@
+{{ form_start(form) }}
+    {{ form_label(form, 'Ajouter un commentaire')}}
+    {{ form_widget(form.content)}}
+    <button class="mt-2 btn btn-outline-danger">Annuler</button>
+    <button class="mt-2 btn btn-outline-success rounded-pill">{{ button_label|default('Ajouter') }}</button>
+{{ form_end(form) }}

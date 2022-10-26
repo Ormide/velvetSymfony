@@ -1,3 +1,18 @@
-.disctext {
-    font-size: 12px;
+.s-bg-purple-dark {
+    background-color: #270245;
+}
+.s-bg-purple {
+    background-color: #871A85;
+}
+.s-bg-red {
+    background-color: #FF2941;
+}
+.s-bg-yellow {
+    background-color: #FEFF38;
+}
+.s-bg-magenta {
+    background-color: #FE18D3;
+}
+.s-bg-ultramarine {
+    background-color: #4206F1;
 }

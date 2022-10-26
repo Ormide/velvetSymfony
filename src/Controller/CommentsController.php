@@ -36,7 +36,7 @@ class CommentsController extends AbstractController
             return $this->redirectToRoute('app_disc_show', ['id' => $disc->getId()], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('comments/new.html.twig', [
+        return $this->renderForm('comment/_form.html.twig', [
             'disc' => $disc,
             'comment' => $comment,
             'form' => $form,
@@ -61,7 +61,7 @@ class CommentsController extends AbstractController
             return $this->redirectToRoute('app_disc_show', ['id' => $disc->getId()], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('comments/edit.html.twig', [
+        return $this->renderForm('comment/edit.html.twig', [
             'comment' => $comment,
             'form' => $form,
             'disc' => $disc,

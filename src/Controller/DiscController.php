@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comments;
 use App\Entity\Disc;
 use App\Entity\User;
+use App\Form\CommentsType;
 use App\Form\DiscType;
 use App\Repository\CommentsRepository;
 use App\Repository\DiscRepository;
@@ -61,16 +62,31 @@ class DiscController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_disc_show', methods: ['GET'])]
-    public function show(Disc $disc, CommentsRepository $commentsRepository): Response
+    #[Route('/{id}', name: 'app_disc_show', methods: ['GET', 'POST'])]
+    public function show(Request $request ,Disc $disc, CommentsRepository $commentsRepository): Response
     {
         $user = $this->getUser();
+        $comment = new Comments();
+        $date = new DateTime();
+
+        $form = $this->createForm(CommentsType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setDate($date);
+            $comment->setUser($user);
+            $comment->setDisc($disc);
+            $commentsRepository->add($comment, true);
+
+            return $this->redirectToRoute('app_disc_show', ['id' => $disc->getId()], Response::HTTP_SEE_OTHER);
+        }
 
         return $this->render('disc/show.html.twig', [
             'disc' => $disc,
             'discPrice' => $disc->PriceDecimal(),
             'comment' => $commentsRepository->findCommentDisc($disc),
             'user' => $user,
+            'form' => $form->createView(),
         ]);
     }
 

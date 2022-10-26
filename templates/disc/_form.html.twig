@@ -1,9 +1,57 @@
-{{ form_start(form, {'attr': {'class': 'row d-md-flex justify-content-center', 'novalidate': 'novalidate'}}) }}
-    <div class='col-md-6'>
-        {{ form_widget(form) }}
-        <div class='text-center'>
-            <a class="btn btn-secondary rounded-pill" href='{{ path ('app_disc_index')}}'>Retour</a>
-            <button class="btn btn-primary rounded-pill">{{ button_label|default('Save') }}</button>
-        </div>
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'row g-3'}}) }}
+
+    <div class='col-12 col-md-4'>
+        {{ form_label(form.title, 'Titre')}}
+        {{ form_widget(form.title)}}
+        {{ form_errors(form.title)}}
+        {{ form_help(form.title)}}
+    </div>
+
+    <div class='col-12 col-md-4'>
+        {{ form_label(form.artist, 'Artiste')}}
+        {{ form_widget(form.artist)}}
+        {{ form_errors(form.artist)}}
+        {{ form_help(form.artist)}}
+        <a href='{{ path("app_artist_new")}}'>Ajouter un nouvel artiste</a>
+    </div>
+
+    <div class='col-12 col-md-4'>
+        {{ form_label(form.year, 'Année')}}
+        {{ form_widget(form.year)}}
+        {{ form_errors(form.year)}}
+        {{ form_help(form.year)}}
+    </div>
+
+    <div class='col-12 col-md-4'>
+        {{ form_label(form.genre, 'Genre')}}
+        {{ form_widget(form.genre)}}
+        {{ form_errors(form.genre)}}
+        {{ form_help(form.genre)}}
+    </div>
+
+    <div class='col-12 col-md-4'>
+        {{ form_label(form.label, 'Label')}}
+        {{ form_widget(form.label)}}
+        {{ form_errors(form.label)}}
+        {{ form_help(form.label)}}
+    </div>
+
+    <div class='col-12 col-md-4'>
+        {{ form_label(form.price, 'Prix')}}
+        {{ form_widget(form.price)}}
+        {{ form_errors(form.price)}}
+        {{ form_help(form.price)}}
+    </div>
+
+    <div class='col-12 col-md-8'>
+        {{ form_label(form.picture2, 'Jaquette')}}
+        {{ form_widget(form.picture2)}}
+        {{ form_errors(form.picture2)}}
+        {{ form_help(form.picture2)}}
+    </div>
+
     <div>
+        <a class="btn btn-secondary rounded-pill" href='{{ path ('app_disc_index') }}'>Annuler</a>
+        <button class="btn btn-primary rounded-pill">{{ button_label|default('Save') }}</button>
+    </div>
 {{ form_end(form) }}

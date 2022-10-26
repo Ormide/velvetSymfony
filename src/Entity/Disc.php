@@ -2,16 +2,14 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\DiscRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Artist;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Artist;
+use App\Repository\DiscRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Regex;
 
 #[ORM\Entity(repositoryClass: DiscRepository::class)]
 #[ApiResource()]
@@ -25,33 +23,24 @@ class Disc
 
     #[ORM\Column(length: 255)]
     #[Groups(['read:comment', 'read:comment:full'])]
-    #[Regex('/^[A-Za-z0-9éèàçâêûîôäëüïö\ ]+$/')]
-    #[NotBlank()]
     private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
     #[ORM\Column(length: 255)]
-    #[Regex('/^[A-Za-z0-9éèàçâêûîôäëüïö\ ]+$/')]
-    #[NotBlank()]
     private ?string $label = null;
 
     #[ORM\Column]
-    #[Regex('/^[0-9]{4}$/')]
-    #[NotBlank()]
     private ?int $year = null;
 
     #[ORM\ManyToOne(inversedBy: 'discs')]
     private ?artist $artist = null;
 
     #[ORM\Column(length: 255)]
-    #[Regex('/^[A-Za-z0-9éèàçâêûîôäëüïö\ ]+$/')]
-    #[NotBlank()]
     private ?string $genre = null;
 
     #[ORM\Column]
-    #[NotBlank()]
     private ?int $price = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

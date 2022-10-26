@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les utilisateurs{% endblock %}
+
+{% block body %}
+<div class='container-xxl'>
+    <!--BreadCrumb-->
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb my-2">
+            <li class="breadcrumb-item"><a href="{{ path ('home') }}">Acceuil</a></li>
+            <li class='breadcrumb-item'><a href='{{ path ("app_admin") }}'>Administrateur</a></li>
+            <li class="breadcrumb-item active">Utilisateurs</li>
+        </ol>
+    </nav>
+    <div class='d-flex justify-content-between'>
+        <h1 class='mt-2'>Les utilisateurs</h1>
+        <div class='align-self-center'>
+            <a class='mt-2 btn btn-outline-success rounded-pill' href="{{ path('app_user_new') }}">Créer un nouvel utilisateur</a>
+        </div>
+    </div>
+    <div class='table-responsive'>
+        <table class="table mt-2">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Email</th>
+                    <th>Roles</th>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th></th> 
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                    <td>{{ user.Firstname }}</td>
+                    <td>{{ user.Lastname }}</td>
+                    <td>
+                        <a class='btn btn-primary btn-sm' href="{{ path('app_user_show', {'id': user.id}) }}">Afficher</a>
+                        <a class='btn btn-primary btn-sm' href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

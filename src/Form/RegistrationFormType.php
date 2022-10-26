@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,6 +22,9 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email', TextType::class, [
                 'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir une adresse email.'
+                    ]),
                     new Regex([
                         'pattern' => '/^[A-Za-z0-9]+@[A-Za-z0-9]+.[A-Za-z]+$/',
                         'message' => 'Adresse non valide',
@@ -28,18 +32,20 @@ class RegistrationFormType extends AbstractType
                 ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
-                'label' => 'J\'accepte le traitement de mes informations.',
+                'label' => 'J\'accepte le traintement de mes informations',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'Vous devez accepeter les termes.',
+                        'message' => 'Vous devez accepeter le traitement de vos informations.',
                     ]),
                 ],
             ])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
+            ->add('password', RepeatedType::class, [
                 'mapped' => false,
+                'type' => PasswordType::class,
+                'required' => true,
+                'first_options'  => ['label' => 'Mot de passe'],
+                'second_options' => ['label' => 'Confirmer le Mot de passe'],
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([

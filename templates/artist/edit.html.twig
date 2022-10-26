@@ -1,10 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier un artiste{% endblock %}
+{% block title %}Modifier {{artist.name}}{% endblock %}
 
 {% block body %}
-    <h1 class="text-center pt-2">Modifier un artiste</h1>
+<canvas class="d-none d-md-block s-bg-purple w-100" height="20"></canvas>
+    <div class='container-xxl'>
+        <!--BreadCrumb-->
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb my-3">
+                <li class="breadcrumb-item"><a href="{{ path ('home') }}">Acceuil</a></li>
+                <li class="breadcrumb-item"><a href="{{ path ('app_disc_index') }}">Artiste</a></li>
+                <li class="breadcrumb-item"><a href="{{ path ('app_artist_show', {id: artist.id}) }}">{{artist.name}}</a></li>
+                <li class='breadcrumb-item active'>Modifier</li>
+            </ol>
+        </nav>
 
-    {{ include('disc/_form.html.twig', {'button_label': 'Modifier'}) }}
-
+        {{ include('artist/_form.html.twig', {'button_label': 'Modifier'}) }}
+        <div class='mt-2'>
+            {{ include('artist/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

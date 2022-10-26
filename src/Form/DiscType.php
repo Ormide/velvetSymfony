@@ -4,15 +4,15 @@ namespace App\Form;
 
 use App\Entity\Disc;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class DiscType extends AbstractType
 {
@@ -20,10 +20,6 @@ class DiscType extends AbstractType
     {
         $builder
             ->add('title', TextType::class,[
-                'label' => 'Titre',
-                'attr' => [
-                    'placeholder' => 'Titre'
-                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir un titre'
@@ -34,12 +30,14 @@ class DiscType extends AbstractType
                     ])
                 ]
             ])
-            ->add('artist')
+            ->add('artist', null, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez sélectionner un artiste'
+                    ])
+                ]
+            ])
             ->add('year', IntegerType::class, [
-                'label' => 'Année',
-                'attr' => [
-                    'placeholder' => 'Année'
-                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir une année'
@@ -51,10 +49,6 @@ class DiscType extends AbstractType
                 ]
             ])
             ->add('genre', TextType::class, [
-                'label' => 'Genre',
-                'attr' => [
-                    'placeholder' => 'Genre'
-                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir un genre'
@@ -66,10 +60,6 @@ class DiscType extends AbstractType
                 ]
             ])
             ->add('label', TextType::class, [
-                'label' => 'Label',
-                'attr' => [
-                    'placeholder' => 'Label'
-                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir un label'
@@ -81,11 +71,6 @@ class DiscType extends AbstractType
                 ]
             ])
             ->add('price', MoneyType::class, [
-                'divisor' => 100,
-                'label' => 'Prix',
-                'attr' => [
-                    'placeholder' => 'Prix'
-                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir un prix'
@@ -93,7 +78,6 @@ class DiscType extends AbstractType
                 ]
             ])
             ->add('picture2', FileType::class, [
-                'label' => 'Jaquette du disque',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [

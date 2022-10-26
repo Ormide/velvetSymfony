@@ -1,19 +1,52 @@
 {% extends 'base.html.twig' %}
 {% block title %}Velvet Record{% endblock %}
 {% block body %}
-<img class ='img-fluid' src='{{ asset ('images/banner.jpg') }}' alt='VelvetRecord' title='VelvetRecord' width='100%'>
-
-<div class='p-2'>
-    <h3 class='text-center'>Disques récement ajouté :</h3>
-    <div class='row justify-content-center'>
-        {% for disc in discs %}
-            <div class='col-2'>
-            <a href='{{ path ('app_disc_show', {id: disc.id}) }}'>
-                <img src="{{ asset ('images/disc/') }}{{ disc.picture }}" class="img-fluid rounded h-100 border border-dark" alt="{{ disc.title }}" title="{{ disc.title }}">
-            </a>
-            </div>
-        {% endfor %}
-    </div>
+<div class='container-fluid p-0'>
+    <canvas class="d-none d-md-block w-100 s-bg-purple" height="75"></canvas>
 </div>
 
+<div class="container-xxl">
+    <!--LastDisc-->
+    <div class="col-10 mx-auto d-none d-md-block border border-dark rounded p-4 mt-5">
+        <h2 class="text-center mb-4">Les derniers disques ajoutés</h2>        
+        <div class="row row-cols-5">
+            {% for disc in discs %}
+                <div class="col">
+                    <div class="position-relative p-0 d-flex flex-column border border-dark rounded h-100">
+                        <div class="ratio ratio-1x1">
+                            <img src="{{ asset ('images/disc/') }}{{ disc.picture }}" class="img-fluid h-100 rounded-top" alt="{{ disc.title }}" title="{{ disc.title }}">
+                        </div>
+                        <div class="d-flex flex-column flex-grow-1 justify-content-between p-2">
+                            <p class="h5">{{ disc.title }}</p>
+                            <p class="fw-light">{{ disc.artist.name }}</p>
+                        </div>
+                        <a href="{{ path ('app_disc_show', {id: disc.id}) }}" class="stretched-link"></a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+    <div class='container-fluid p-0'>
+    <div class="d-flex flex-column flex-md-row mb-5 mt-md-5 mx-0">
+        <div class="position-relative col-md-6 p-0">
+            <canvas class="w-100 s-bg-ultramarine" height="150"></canvas>
+            <p class="h5 ps-2">Voir les disques</p>
+            <a href="{{ path('app_disc_index') }}" class="stretched-link"></a>
+        </div>
+
+        <div class="position-relative col-md-6 p-0">
+            <canvas class="w-100 s-bg-purple-dark" height="150"></canvas>
+            <p class="h5 ps-2">Voir les artistes</p>
+            <a href="{{ path('app_artist_index') }}" class="stretched-link"></a>
+        </div>
+    </div>
+</div>
+<!--Article-->
+<div class="container-xxl">
+    <div class="border border-dark rounded mt-5 p-5">
+        <p class="h2">Zone 1</p>
+        <p class="mb-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia, soluta repellendus? Sit excepturi numquam earum culpa, architecto expedita itaque eius delectus aliquid tempore at deleniti? Labore ad inventore consectetur fuga nobis repellat omnis sint nihil voluptates ipsa dicta dignissimos dolor et tempora ipsum maiores, maxime neque nesciunt! Cupiditate voluptate veniam accusantium dolore mollitia voluptas facere error sint, natus soluta sunt officia pariatur expedita recusandae corporis perspiciatis esse, delectus maiores. Cupiditate eius sit ut, ea, fuga perspiciatis odit magni aut, dolorum animi neque. In harum, nulla qui ad, nam magnam numquam dolore ex a earum et perferendis repellendus reiciendis laboriosam amet, ut corporis quidem. Unde illo officia reiciendis similique eum sint, natus quam iste libero id porro facere neque suscipit distinctio obcaecati saepe sequi atque commodi soluta impedit. Ducimus accusamus maxime adipisci voluptates odit voluptatibus quibusdam nemo quam laborum dolor non inventore itaque, nobis blanditiis facere optio! Cumque odio hic, culpa soluta distinctio sunt dolore in. Totam expedita dolore optio dolores, dignissimos quisquam beatae ducimus dolor sequi fugit quo rem fuga magni doloremque illum, recusandae quam vero dolorem distinctio eius commodi repudiandae tempora. Beatae qui soluta nam delectus saepe, modi fuga est unde! Temporibus perspiciatis, voluptate quam molestias minima quibusdam laudantium voluptatem consequuntur est ratione in veniam nisi! Tempore nihil placeat error ratione veniam incidunt, dolor fuga pariatur qui! Fugit dolor iusto aliquid nobis excepturi modi, cupiditate saepe nulla officia, eius nisi! Accusamus, minima provident commodi, numquam totam ab doloremque voluptates natus laborum saepe sit quasi ad eligendi alias nihil, animi et cumque sequi sed ullam cum architecto ducimus? Adipisci accusantium, cumque, sit quae nulla cum beatae expedita enim eum voluptatibus laudantium ea fugit esse a soluta rem accusamus. Nemo cupiditate consequatur rerum reprehenderit commodi corporis tempora alias, corrupti officiis laboriosam illo at totam nesciunt provident dolore, quidem iure sit laudantium. Tempora quaerat cum dolorem omnis, deleniti, ducimus molestiae, magni autem ipsum doloremque enim eaque eligendi ad earum esse consequatur sit aliquid! Sint dolor ipsam omnis iusto molestiae? Ratione.</p>
+    </div>
+</div>
 {% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier
+	{{user.email}}
+{% endblock %}
+
+{% block body %}
+	<div
+		class='container-xxl'>
+		<!--BreadCrumb-->
+		<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+			<ol class="breadcrumb my-2">
+				<li class="breadcrumb-item">
+					<a href="{{ path ('home') }}">Acceuil</a>
+				</li>
+				<li class='breadcrumb-item'>
+					<a href='{{ path ("app_admin") }}'>Administrateur</a>
+				</li>
+				<li class="breadcrumb-item">
+					<a href='{{ path ("app_user_index") }}'>Utilisateurs</a>
+				</li>
+				<li class="breadcrumb-item">
+					<a href='{{ path ("app_user_show", {id: user.id}) }}'>{{user.email}}</a>
+				</li>
+				<li class='breadcrumb-item active'>Modifier</li>
+			</ol>
+		</nav>
+
+		<h1>Modifier
+			{{user.email}}</h1>
+
+		<!--FormEdit-->
+		{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            <div class='row row-cols-2'>
+                <div class='col'>
+                    {{ form_label(form.email, 'E-mail')}}
+                    {{ form_widget(form.email)}}
+                    {{ form_errors(form.email)}}
+                    {{ form_help(form.email)}}
+                </div>
+            </div>
+
+			<div class='row my-2'>
+				<div class='col'>
+					{{ form_label(form.password.first, 'Mot de passe')}}
+					{{ form_widget(form.password.first)}}
+					{{ form_errors(form.password.first)}}
+					{{ form_help(form.password.first)}}
+				</div>
+				<div class='col'>
+					{{ form_label(form.password.second, 'Confirmer le Mot de passe')}}
+					{{ form_widget(form.password.second)}}
+					{{ form_errors(form.password.second)}}
+					{{ form_help(form.password.second)}}
+				</div>
+            </div>
+
+            <div class='row'>
+                <div class='col'>
+                    {{ form_label(form.firstname, 'Prénom')}}
+                    {{ form_widget(form.firstname)}}
+                    {{ form_errors(form.firstname)}}
+                    {{ form_help(form.firstname)}}
+                </div>
+
+                <div class='col'>
+                    {{ form_label(form.lastname, 'Nom')}}
+                    {{ form_widget(form.lastname)}}
+                    {{ form_errors(form.lastname)}}
+                    {{ form_help(form.lastname)}}
+                </div>
+            </div>
+
+            <div class='row row-cols-2 my-2'>
+                <div class='col'>
+                    {{ form_label(form.birthday, 'Date de naissance')}}
+                    {{ form_widget(form.birthday)}}
+                    {{ form_errors(form.birthday)}}
+                    {{ form_help(form.birthday)}}
+                </div>
+            </div>
+            
+            <div class='col'>
+                {{ form_label(form.roles, 'Role')}}
+                {{ form_widget(form.roles)}}
+                {{ form_errors(form.roles)}}
+                {{ form_help(form.roles)}}
+            </div>
+
+			<a class='btn btn-outline-dark rounded-pill mt-2' href='{{ path("app_user_index")}}'>Annuler</a>
+			<button class="btn btn-outline-success rounded-pill mt-2">Modifier</button>
+			{{ form_end(form) }}
+            <div class='mt-2'>
+		    	{{ include('user/_delete_form.html.twig') }}
+            </div>
+		</div>
+	{% endblock %}

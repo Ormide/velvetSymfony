@@ -1,22 +1,22 @@
-<button type="button" class="btn btn-outline-danger rounded-pill" data-bs-toggle="modal" data-bs-target="#ArtistDeleteModal">
+<button type="button" class="btn btn-outline-danger rounded-pill" data-bs-toggle="modal" data-bs-target="#UserDeleteModal">
     Supprimer
 </button>
 
 <!-- Modal suppresion de l'artist-->
-<div class="modal fade" id="ArtistDeleteModal" tabindex="-1" aria-labelledby="ArtistDeleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="UserDeleteModal" tabindex="-1" aria-labelledby="UserDeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="ArtistDeleteModalLabel">Confirmer la suppresion</h1>
+                <h1 class="modal-title fs-5" id="UserDeleteModalLabel">Confirmer la suppresion</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Confirmer la suppresion de {{artist.name}} ?</p>
+                <p>Confirmer la suppresion de {{user.email}} ?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Annuler</button>
-                <form method="post" action="{{ path('app_artist_delete', {'id': artist.id}) }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ artist.id) }}">
+                <form method="post" action="{{ path('app_user_delete', {'id': user.id}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
                     <button class="btn btn-danger rounded-pill">Supprimer</button>
                 </form>
             </div>

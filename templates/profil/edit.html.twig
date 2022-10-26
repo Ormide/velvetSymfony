@@ -1,12 +1,74 @@
 {% extends 'base.html.twig' %}
-{% block title %}Profil{% endblock %}
+
+{% block title %}
+    {{app.user.email}}
+{% endblock %}
+
 {% block body %}
-    <h1 class='pt-2 text-center'>Modifier votre profil</h1>
-    {{ form_start(form, {'attr': {'class': 'row d-md-flex justify-content-center', 'novalidate': 'novalidate'}}) }}
-    <div class='col-md-6'>
-        {{ form_widget(form) }}
-        <a class="btn btn-secondary rounded-pill" href='{{ path ('profil')}}'>Retour</a>
-        <button class="btn btn-primary rounded-pill">{{ button_label|default('Modifier') }}</button>
-    <div>
-{{ form_end(form) }}
+<div class='container-xxl'>
+    <h1 class='pt-2 text-center'>Modifier vos informations</h1>
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+            <div class='row row-cols-1 row-cols-md-2 g-2'>
+                <div class='col'>
+                    {{ form_label(form.email, 'E-mail')}}
+                    {{ form_errors(form.email)}}
+                    {{ form_widget(form.email)}}
+                    {{ form_help(form.email)}}
+                </div>
+            </div>
+
+            <div class='row row-cols-1 row-cols-md-2 g-2 mt-1'>
+                <div class='col'>
+                    {{ form_label(form.password.first, 'Nouveau Mot de passe')}}
+                    {{ form_widget(form.password.first)}}
+                    {{ form_errors(form.password.first)}}
+                    {{ form_help(form.password.first)}}
+                </div>
+                <div class='col'>
+                    {{ form_label(form.password.second, 'Confirmer le nouveau Mot de passe')}}
+                    {{ form_widget(form.password.second)}}
+                    {{ form_errors(form.password.second)}}
+                    {{ form_help(form.password.second)}}
+                </div>
+
+                <div class='col'>
+                    {{ form_label(form.firstname, 'Prénom') }}
+                    {{ form_errors(form.firstname)}}
+                    {{ form_widget(form.firstname) }}
+                    {{ form_help(form.firstname)}}
+                </div>
+
+                <div class='col'>
+                    {{ form_label(form.lastname, 'Nom')}}
+                    {{ form_errors(form.lastname)}}
+                    {{ form_widget(form.lastname) }}
+                    {{ form_help(form.lastname)}}
+                </div>
+
+                <div class='col'>
+                    {{ form_label(form.birthday, 'Date de naissance')}}
+                    {{ form_errors(form.birthday)}}
+                    {{ form_widget(form.birthday) }}
+                    {{ form_help(form.birthday)}}
+                </div>
+
+                <div class='col'>
+                    {{ form_label(form.picture2, 'Image de profil')}}
+                    {{ form_errors(form.picture2)}}
+                    {{ form_widget(form.picture2) }}
+                    {{ form_help(form.picture2)}}
+                </div>
+            </div>
+        </div>
+
+        <div class='hstack gap-2 justify-content-center mt-3'>
+            <a class="btn btn-outline-danger" href='{{ path ('profil')}}'>Annuler</a>
+            <button class="btn btn-success">{{ button_label|default('Modifier') }}</button>
+        </div>
+    {{ form_end(form) }}
+
+</div>
+
 {% endblock %}

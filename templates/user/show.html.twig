@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ user.email }}{% endblock %}
+
+{% block body %}
+<div class='container-xxl'>
+    <!--BreadCrumb-->
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb my-2">
+            <li class="breadcrumb-item"><a href="{{ path ('home') }}">Acceuil</a></li>
+            <li class='breadcrumb-item'><a href='{{ path ("app_admin") }}'>Administrateur</a></li>
+            <li class="breadcrumb-item"><a href="{{ path ('app_user_index') }}">Utilisateurs</a></li>
+            <li class="breadcrumb-item active">{{ user.email }}</li>
+        </ol>
+    </nav>
+
+    <h1 class='text-center my-2'>{{ user.email }}</h1>
+    <div class='d-flex  mx-auto p-2'>
+        <div class='ratio ratio-1x1'>
+            <canvas class='s-bg-ultramarine rounded'>
+        </div>
+        <div class='col-6 p-4'>
+            <div class='d-flex justify-content-center'>
+                {% if user.roles[0] == 'ROLE_SUPER' %}
+                    <p class='badge bg-danger'>Super-Administrateur</p>
+                {% elseif user.roles[0] == 'ROLE_ADMIN' %}
+                    <p class='badge bg-warning'>Administrateur</p>
+                {% else %}
+                    <p class='badge bg-success'>Utilisateur</p>
+                {% endif %}
+            </div>
+            <p class='rounded border border-dark p-2'>Prénom : {{user.firstname}}</p>
+            <p class='rounded border border-dark p-2'>Nom : {{ user.lastname }}</p>
+            <p class='rounded border border-dark p-2'>Date de naissance : {{ user.birthday|date("d/m/Y") }}</p>
+        </div>
+    </div>
+    <div class='d-flex justify-content-center mt-4'>
+        <a class='btn btn-outline-dark rounded-pill' href="{{ path('app_user_index') }}">Retour</a>
+        <a class='btn btn-outline-success rounded-pill me-2 ms-2' href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
+    </div>
+</div>
+{% endblock %}
